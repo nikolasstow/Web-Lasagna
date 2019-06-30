@@ -1,18 +1,21 @@
-class Hello {
-    FirstName!: string;
-    LastName!: string;
-    SayHello = function (this: Hello) : string {
-        return "Hello " + this.FirstName + " " + this.LastName;
-    }
-}
+let varname: number = 10;
+let bln: boolean = true;
+let fullName: string = "Nikolas Stow";
+let message: string = 'This is my message';
+message = `Hello ${fullName}, How are you?`;
 
-function sayHello (firstName: string, lastName: string): string {
-    var message: string = "Hello ";
-    message += firstName + " " + lastName;
-    return message;
-}
+console.log(message);
 
-var h: Hello = new Hello();
-h.FirstName = "Nikolas";
-h.LastName = "Stow";
-console.log(h.SayHello());
+let lst: number[]=[1,2,3,4];
+let lst2: ReadonlyArray<number> = [1,2,3,4,5];
+
+let x: [string, number] = ['hello',20]; //Tuple
+
+enum Color { Red="FF0000", Green="00FF00", Blue="0000FF" };
+let c: Color = Color.Green;
+console.log(c);
+
+let a: any = "A";
+let s: number = <number>a;
+
+console.log(s);
