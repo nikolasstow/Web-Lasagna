@@ -1,21 +1,80 @@
-let varname: number = 10;
-let bln: boolean = true;
-let fullName: string = "Nikolas Stow";
-let message: string = 'This is my message';
-message = `Hello ${fullName}, How are you?`;
+let input = [1,2];
+//let first:number = input[0];
+//let second:number = input[1];
+let [first, second] = input;
+//console.log(first + " " + second);
 
-console.log(message);
+let [n1,n2,...rest] = [1, 2, 3, 4, 5];
+//console.log(n1, rest);
 
-let lst: number[]=[1,2,3,4];
-let lst2: ReadonlyArray<number> = [1,2,3,4,5];
+let [m1] = [2,3,4,5];
+//console.log(m1);
 
-let x: [string, number] = ['hello',20]; //Tuple
+let [,,m2,m3] = [1,2,3,4];
+//console.log(m2,m3);
 
-enum Color { Red="FF0000", Green="00FF00", Blue="0000FF" };
-let c: Color = Color.Green;
-console.log(c);
+let [totalDate, year, month, day] = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec('2017-07-01') || [0,0,0,0];
+//console.log(totalDate,year,month,day);
 
-let a: any = "A";
-let s: number = <number>a;
+let ob = {
+    a: "foo",
+    b: 12,
+    c: "bar"
+}
 
-console.log(s);
+let { a:A, b:B } = ob;
+//console.log(A,B);
+
+let {a,...rest1} = ob;
+//console.log(rest1);
+
+let user = {
+    department: "DP1",
+    name: "NikolasStow",
+    favoriteMusician: {
+        first: {
+            name: "Jesse"
+        },
+        second: {
+            name: "Lacey"
+        }
+    },
+    hobbies : ["Music","Programming"]
+};
+
+let { favoriteMusician: { first: First, second: Second }, hobbies: [hob1, hob2] } = user;
+//console.log(hob1);
+
+type C = {a?:string, b?:number};
+
+function foo(p1: C) {
+    let {a="",b=100} = p1;
+    //console.log(a,b);
+}
+
+foo({a: "A",b: 12});
+foo({});
+
+function foo1({ c, d } = { c: "", d: 0}) {
+    //console.log(c,d);
+}
+
+foo1();
+
+function foo2({e="a", f=0} = {}) {
+    //console.log(e,f);
+}
+
+foo2({e: "b"});
+foo2();
+
+let a1 = [1, 2, 3];
+let a2 = [4, 5, 6];
+
+let a12 = [0, ...a1, ...a2, 7];
+//console.log(a12);
+
+let obs1 = {p1:"p1", p2:10, p3:true};
+let obs2 = {...obs1, p4: 100};
+
+console.log(obs2);
