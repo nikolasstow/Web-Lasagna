@@ -1,80 +1,89 @@
-let input = [1,2];
-//let first:number = input[0];
-//let second:number = input[1];
-let [first, second] = input;
-//console.log(first + " " + second);
-
-let [n1,n2,...rest] = [1, 2, 3, 4, 5];
-//console.log(n1, rest);
-
-let [m1] = [2,3,4,5];
-//console.log(m1);
-
-let [,,m2,m3] = [1,2,3,4];
-//console.log(m2,m3);
-
-let [totalDate, year, month, day] = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec('2017-07-01') || [0,0,0,0];
-//console.log(totalDate,year,month,day);
-
-let ob = {
-    a: "foo",
-    b: 12,
-    c: "bar"
+class Person {
+    FirstName: string;
+    LastName: string;
+    DateOfBirth: Date;
+    testVar: boolean = false;
+    
+    constructor(firstName: string, lastName: string, dateOfBirth: Date) {
+        this.FirstName = firstName;
+        this.LastName = lastName;
+        this.DateOfBirth = dateOfBirth;
+    }
+    
+    public get FullName():string {
+        return this.FirstName + " " + this.LastName;
+    }
+    
+    public set FullName(name: string) {
+        // set up validation
+        if(name.split(" ").length != 2) throw "Invalid Name";
+        this.FirstName = name.split(' ')[0];
+        this.LastName = name.split(' ')[1];
+    }
+    
+    show() {
+        console.log(this)
+    }
 }
 
-let { a:A, b:B } = ob;
-//console.log(A,B);
-
-let {a,...rest1} = ob;
-//console.log(rest1);
-
-let user = {
-    department: "DP1",
-    name: "NikolasStow",
-    favoriteMusician: {
-        first: {
-            name: "Jesse"
-        },
-        second: {
-            name: "Lacey"
-        }
-    },
-    hobbies : ["Music","Programming"]
-};
-
-let { favoriteMusician: { first: First, second: Second }, hobbies: [hob1, hob2] } = user;
-//console.log(hob1);
-
-type C = {a?:string, b?:number};
-
-function foo(p1: C) {
-    let {a="",b=100} = p1;
-    //console.log(a,b);
+class Person2 {
+    constructor(private FirstName: string, private LastName: string, private DateOfBirth: Date) {
+    }
+    show() {
+        console.log(this)
+    }
 }
 
-foo({a: "A",b: 12});
-foo({});
-
-function foo1({ c, d } = { c: "", d: 0}) {
-    //console.log(c,d);
+class Employee extends Person {
+    DepartmentName: string;
+    Salary: number;
+    constructor(firstName: string, lastName: string, dateOfBirth: Date, departmentName: string, salary: number) {
+        super(firstName, lastName, dateOfBirth);
+        this.DepartmentName = departmentName;
+        this.Salary = salary;
+    }
+    show() {
+        super.show();
+        console.log(this.FullName);
+    }
 }
 
-foo1();
+let p:Person = new Employee("Nikolas","Stow", new Date(1997, 1, 11), "Music", 300001);
+p.FullName = "Jesse Lacey";
+p.show();
 
-function foo2({e="a", f=0} = {}) {
-    //console.log(e,f);
+let e: Employee;
+
+if (p instanceof Employee) e = p as Employee;
+
+/*--------------------------------------*/
+
+abstract class Figure {
+    constructor(protected Dimension: number) {}
+    public abstract Area(): number;
+    public abstract Perimeter(): number;
 }
 
-foo2({e: "b"});
-foo2();
+class Square extends Figure {
+    Area(): number {
+        return Math.pow(this.Dimension, 2);
+    }
+    Perimeter(): number {
+        return 4 * this.Dimension;
+    }
+}
 
-let a1 = [1, 2, 3];
-let a2 = [4, 5, 6];
+class Circle extends Figure {
+    Area(): number {
+        return Math.PI * Math.pow(this.Dimension, 2);
+    }
+    Perimeter(): number {
+        return 2 * Math.PI * this.Dimension;
+    }
+}
 
-let a12 = [0, ...a1, ...a2, 7];
-//console.log(a12);
+let square: Figure = new Square(2);
+console.log(square.Area());
 
-let obs1 = {p1:"p1", p2:10, p3:true};
-let obs2 = {...obs1, p4: 100};
-
-console.log(obs2);
+let circle: Figure = new Circle(2);
+console.log(circle.Perimeter());
