@@ -1,46 +1,20 @@
-interface IPoint {
-    X: number;
-    Y: number;
-    Z?: number;
-    distanceFromOrigin() : number;
-    distanceFromPoint(point: IPoint): number;
+function Add(a: number, b: number, c: number = 0) {
+    return a + b + c;
 }
 
-class Point implements IPoint {
-    X: number;
-    Y: number;
-    constructor(x:number, y:number) {
-        this.X = x;
-        this.Y = y;
+console.log(Add(10,20,30));
+
+function Add2 (n:number,...numbers: number[]) {
+    let x: number = 0;
+    for (var i = 0; i <numbers.length; i++) {
+        x += numbers[i];
     }
-    distanceFromOrigin(): number {
-        return Math.sqrt(Math.pow(this.X,2) + Math.pow(this.Y,2));
-    }
-    distanceFromPoint(point: IPoint): number {
-         return Math.sqrt(Math.pow(point.X - this.X,2) + Math.pow(point.Y - this.Y,2));
-    }
+    return x;
 }
 
-let pt1: Point = new Point(10,20);
-let pt2: Point = new Point(234,54);
+console.log(Add2(1,2,3,4,5,7));
 
-console.log(pt1.distanceFromOrigin());
-console.log(pt1.distanceFromPoint(pt2));
-
-interface IMath {
-    (n1: number, n2: number): number;
+let sub: (x: number, y: number) => number;
+sub = function (x,y) {
+    return x - y;
 }
-
-let add: IMath = function (a,b) {
-    return b + a;
-}
-
-console.log(add(1,2));
-
-class Demo {
-    static CalculateAndPrint(m: IMath) {
-        console.log(m(10,20));
-    }
-}
-
-Demo.CalculateAndPrint(add);

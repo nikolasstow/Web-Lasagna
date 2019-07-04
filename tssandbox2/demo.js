@@ -1,30 +1,21 @@
-var Point = /** @class */ (function () {
-    function Point(x, y) {
-        this.X = x;
-        this.Y = y;
+function Add(a, b, c) {
+    if (c === void 0) { c = 0; }
+    return a + b + c;
+}
+console.log(Add(10, 20, 30));
+function Add2(n) {
+    var numbers = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        numbers[_i - 1] = arguments[_i];
     }
-    Point.prototype.distanceFromOrigin = function () {
-        return Math.sqrt(Math.pow(this.X, 2) + Math.pow(this.Y, 2));
-    };
-    Point.prototype.distanceFromPoint = function (point) {
-        return Math.sqrt(Math.pow(point.X - this.X, 2) + Math.pow(point.Y - this.Y, 2));
-    };
-    return Point;
-}());
-var pt1 = new Point(10, 20);
-var pt2 = new Point(234, 54);
-console.log(pt1.distanceFromOrigin());
-console.log(pt1.distanceFromPoint(pt2));
-var add = function (a, b) {
-    return b + a;
+    var x = 0;
+    for (var i = 0; i < numbers.length; i++) {
+        x += numbers[i];
+    }
+    return x;
+}
+console.log(Add2(1, 2, 3, 4, 5, 7));
+var sub;
+sub = function (x, y) {
+    return x - y;
 };
-console.log(add(1, 2));
-var Demo = /** @class */ (function () {
-    function Demo() {
-    }
-    Demo.CalculateAndPrint = function (m) {
-        console.log(m(10, 20));
-    };
-    return Demo;
-}());
-Demo.CalculateAndPrint(add);
